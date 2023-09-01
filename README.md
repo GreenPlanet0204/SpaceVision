@@ -8,6 +8,7 @@ because i want to talk with you real-time communication.
     03/12:frontend finish
     03/19:front+backend
     03/26:firstversion and testing and bugfixing
+    05/28:secondversion and testing and bugfixing
 
 # Fontend
 
