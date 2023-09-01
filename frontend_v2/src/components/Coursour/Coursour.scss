@@ -1,0 +1,135 @@
+.coursour {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 510.2px;
+    height: 300px;
+    animation: animate 20s infinite;
+
+    .eplipse1 {
+        width: 300px;
+        height: 300px;
+        animation: animate1 20s infinite;
+    }
+    .eplipse2 {
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(269.95deg, #e323ff 0.02%, #7517f8 97.45%);
+        filter: blur(150px);
+        animation: animate2 20s infinite;
+    }
+}
+
+@keyframes animate1 {
+    0% {
+        background: #023aff;
+        filter: blur(150px);
+    }
+    50% {
+        background: #023aff;
+        filter: blur(150px);
+    }
+    60% {
+        background: #023aff;
+        filter: blur(150px);
+    }
+    70% {
+        background: #ffa63f;
+        filter: blur(150px);
+    }
+    80% {
+        background: #ffa63f;
+        filter: blur(150px);
+    }
+    90% {
+        background: #ffa63f;
+        filter: blur(150px);
+    }
+    100% {
+        background: #023aff;
+        filter: blur(150px);
+    }
+}
+
+@keyframes animate2 {
+    0% {
+        background: linear-gradient(269.95deg, #e323ff 0.02%, #7517f8 97.45%);
+        filter: blur(150px);
+    }
+    50% {
+        background: linear-gradient(269.95deg, #e323ff 0.02%, #7517f8 97.45%);
+        filter: blur(150px);
+    }
+
+    60% {
+        background: #01f1e3;
+        filter: blur(150px);
+    }
+    70% {
+        background: #01f1e3;
+        filter: blur(150px);
+    }
+    80% {
+        background: #01f1e3;
+        filter: blur(150px);
+    }
+    90% {
+        background: linear-gradient(269.95deg, #e323ff 0.02%, #7517f8 97.45%);
+        filter: blur(150px);
+    }
+    100% {
+        background: linear-gradient(269.95deg, #e323ff 0.02%, #7517f8 97.45%);
+        filter: blur(150px);
+    }
+}
+
+@keyframes animate {
+    0% {
+        left: 1091px;
+        top: 907px;
+    }
+    15% {
+        left: 176px;
+        top: -150px;
+    }
+    25% {
+        left: 1340px;
+        top: -150px;
+    }
+    40% {
+        left: 1340px;
+        top: -150px;
+    }
+    40% {
+        left: -209px;
+        top: 930px;
+    }
+    50% {
+        left: 1091px;
+        top: 907px;
+    }
+    60% {
+        left: 361.71px;
+        top: 190.26px;
+        transform: rotate(-22.93deg);
+    }
+    70% {
+        left: 1394.14px;
+        top: 44px;
+        transform: rotate(21.95deg);
+    }
+    80% {
+        left: 1394.14px;
+        top: 44px;
+        transform: rotate(21.95deg);
+    }
+    90% {
+        left: 165.92px;
+        top: 859.2px;
+        transform: rotate(-36.7deg);
+    }
+    100% {
+        left: 1091px;
+        top: 907px;
+    }
+}

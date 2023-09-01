@@ -1,0 +1,5 @@
+
+venv/
+api/__pycache__/
+server/__pycache__/
+api/migrations/__pycache__/
