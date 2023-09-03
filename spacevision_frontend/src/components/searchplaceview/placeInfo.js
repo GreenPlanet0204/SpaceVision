@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   useColorMode,
@@ -23,19 +23,19 @@ import {
   TableContainer,
   Spacer,
   Icon,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { InfoIcon } from '@chakra-ui/icons';
+import { InfoIcon } from "@chakra-ui/icons";
 
-import { BsFillStarFill } from 'react-icons/bs';
+import { BsFillStarFill } from "react-icons/bs";
 
-import { MdLocationPin } from 'react-icons/md';
+import { MdLocationPin } from "react-icons/md";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import lodash from 'lodash';
-import tzlookup from 'tz-lookup';
-import Clock from 'react-live-clock';
+import lodash from "lodash";
+import tzlookup from "tz-lookup";
+import Clock from "react-live-clock";
 
 import {
   degToDMS,
@@ -44,84 +44,84 @@ import {
   toDegreesMinutesAndSecondsV2Longitude,
   toDegreesMinutesAndSecondsLatitude,
   toDegreesMinutesAndSecondsLongitude,
-} from '../../utils';
+} from "../../utils";
 
-import CoordinateInputView from './coordinateInput';
+import CoordinateInputView from "./coordinateInput";
 
-import Actions from '../../redux/action';
-import Constants from '../../utils/Constants';
-import AppManager from '../../utils/AppManager';
+import Actions from "../../redux/action";
+import Constants from "../../utils/Constants";
+import AppManager from "../../utils/AppManager";
 
-import PhoneNumArray from '../../data/info/phone-num.json';
-import PostalCodeArray from '../../data/info/postal-codes.json';
+import PhoneNumArray from "../../data/info/phone-num.json";
+import PostalCodeArray from "../../data/info/postal-codes.json";
 
 const { PlaceType, CoordinateFormat, SearchPlaceSectionType } = Constants;
 
 const MasterPlaceConfig = {
   [PlaceType.Country]: {
     name: {
-      title: 'Name',
+      title: "Name",
     },
     native: {
-      title: 'Native Name',
+      title: "Native Name",
     },
     capital: {
-      title: 'Capital',
+      title: "Capital",
     },
     region: {
-      title: 'Region',
+      title: "Region",
     },
     subregion: {
-      title: 'Sub-Region',
+      title: "Sub-Region",
     },
     emoji: {
-      title: 'Emoji',
+      title: "Emoji",
     },
     emojiU: {
-      title: 'EmojiU',
+      title: "EmojiU",
     },
     iso3: {
-      title: 'ISO3',
+      title: "ISO3",
     },
     iso2: {
-      title: 'ISO2',
+      title: "ISO2",
     },
     tld: {
-      title: 'Domain',
+      title: "Domain",
     },
     currency_name: {
-      title: 'Currency Name',
+      title: "Currency Name",
     },
     currency: {
-      title: 'Currency Code',
+      title: "Currency Code",
     },
     currency_symbol: {
-      title: 'Currency Symbol',
+      title: "Currency Symbol",
     },
     numeric_code: {
-      title: 'Numeric Code',
+      title: "Numeric Code",
     },
     phone_code: {
-      title: 'Phone Code',
+      title: "Phone Code",
     },
   },
 };
 
 const TimeZoneConfig = {
   zoneName: {
-    title: 'Zone',
+    title: "Zone",
   },
   gmtOffset: {
-    title: 'GMT Offset',
+    title: "GMT Offset",
   },
   gmtOffsetName: {
-    title: 'UTC Offset',
+    title: "UTC Offset",
   },
   abbreviation: {
-    title: 'Short Form',
+    title: "Short Form",
   },
   tzName: {
-    title: 'Full Form',
+    title: "Full Form",
   },
 };
 
@@ -299,23 +299,23 @@ const PlaceInfoView = (props) => {
 
         placeDetailsObj = {
           name: {
-            type: 'name',
-            title: 'Name',
+            type: "name",
+            title: "Name",
             value: currentPlaceItem?.name,
           },
           placeType: {
-            type: 'placeType',
-            title: 'Place Type',
-            value: 'Country',
+            type: "placeType",
+            title: "Place Type",
+            value: "Country",
           },
           latitude: {
-            type: 'latitude',
-            title: 'Latitude',
+            type: "latitude",
+            title: "Latitude",
             value: currentPlaceItem?.latitude,
           },
           longitude: {
-            type: 'longitude',
-            title: 'Longitude',
+            type: "longitude",
+            title: "Longitude",
             value: currentPlaceItem?.longitude,
           },
         };
@@ -328,38 +328,38 @@ const PlaceInfoView = (props) => {
 
         placeDetailsObj = {
           name: {
-            type: 'name',
-            title: 'Name',
+            type: "name",
+            title: "Name",
             value: currentPlaceItem?.name,
           },
           placeType: {
-            type: 'placeType',
-            title: 'Place Type',
-            value: 'State',
+            type: "placeType",
+            title: "Place Type",
+            value: "State",
           },
           address: {
-            type: 'address',
-            title: 'Address',
+            type: "address",
+            title: "Address",
             value: currentPlaceItem?.address,
           },
           stateCode: {
-            type: 'stateCode',
-            title: 'State Code',
+            type: "stateCode",
+            title: "State Code",
             value: currentPlaceItem?.state_code,
           },
           countryName: {
-            type: 'countryName',
-            title: 'Country',
+            type: "countryName",
+            title: "Country",
             value: currentPlaceItem?.countryItem?.name,
           },
           latitude: {
-            type: 'latitude',
-            title: 'Place Latitude',
+            type: "latitude",
+            title: "Place Latitude",
             value: currentPlaceItem?.latitude,
           },
           longitude: {
-            type: 'longitude',
-            title: 'Place Longitude',
+            type: "longitude",
+            title: "Place Longitude",
             value: currentPlaceItem?.longitude,
           },
         };
@@ -372,43 +372,43 @@ const PlaceInfoView = (props) => {
 
         placeDetailsObj = {
           name: {
-            type: 'name',
-            title: 'Name',
+            type: "name",
+            title: "Name",
             value: currentPlaceItem?.name,
           },
           placeType: {
-            type: 'placeType',
-            title: 'Place Type',
-            value: 'City',
+            type: "placeType",
+            title: "Place Type",
+            value: "City",
           },
           address: {
-            type: 'address',
-            title: 'Address',
+            type: "address",
+            title: "Address",
             value: currentPlaceItem?.address,
           },
           latitude: {
-            type: 'latitude',
-            title: 'Place Latitude',
+            type: "latitude",
+            title: "Place Latitude",
             value: currentPlaceItem?.latitude,
           },
           longitude: {
-            type: 'longitude',
-            title: 'Place Longitude',
+            type: "longitude",
+            title: "Place Longitude",
             value: currentPlaceItem?.longitude,
           },
           stateName: {
-            type: 'stateName',
-            title: 'State',
+            type: "stateName",
+            title: "State",
             value: currentPlaceItem?.stateItem?.name,
           },
           stateCode: {
-            type: 'stateCode',
-            title: 'State Code',
+            type: "stateCode",
+            title: "State Code",
             value: currentPlaceItem?.stateItem?.state_code,
           },
           countryName: {
-            type: 'countryName',
-            title: 'Country',
+            type: "countryName",
+            title: "Country",
             value: currentPlaceItem?.countryItem?.name,
           },
         };
@@ -422,8 +422,8 @@ const PlaceInfoView = (props) => {
     placeDetailsObj = {
       ...placeDetailsObj,
       timeZone: {
-        type: 'timeZone',
-        title: 'TimeZone',
+        type: "timeZone",
+        title: "TimeZone",
         value: timezoneByPlace,
       },
     };
@@ -431,9 +431,9 @@ const PlaceInfoView = (props) => {
     placeDetailsObj = {
       ...placeDetailsObj,
       currentDate: {
-        type: 'currentDate',
-        title: 'Current Date',
-        format: 'Do MMM, YYYY, ddd',
+        type: "currentDate",
+        title: "Current Date",
+        format: "Do MMM, YYYY, ddd",
         ticking: false,
         blinking: false,
         value: timezoneByPlace,
@@ -443,9 +443,9 @@ const PlaceInfoView = (props) => {
     placeDetailsObj = {
       ...placeDetailsObj,
       currentTime: {
-        type: 'currentTime',
-        title: 'Current Time',
-        format: 'hh:mm:ss a',
+        type: "currentTime",
+        title: "Current Time",
+        format: "hh:mm:ss a",
         // format: 'hh:mm a',
         ticking: true,
         blinking: false,
@@ -485,23 +485,23 @@ const PlaceInfoView = (props) => {
       case PlaceType.Country: {
         placeDetailsObj = {
           name: {
-            type: 'name',
-            title: 'Name',
+            type: "name",
+            title: "Name",
             value: currentPlaceItem?.name,
           },
           placeType: {
-            type: 'placeType',
-            title: 'Place Type',
-            value: 'Country',
+            type: "placeType",
+            title: "Place Type",
+            value: "Country",
           },
           latitude: {
-            type: 'latitude',
-            title: 'Latitude',
+            type: "latitude",
+            title: "Latitude",
             value: currentPlaceItem?.latitude,
           },
           longitude: {
-            type: 'longitude',
-            title: 'Longitude',
+            type: "longitude",
+            title: "Longitude",
             value: currentPlaceItem?.longitude,
           },
         };
@@ -512,28 +512,28 @@ const PlaceInfoView = (props) => {
       case PlaceType.State: {
         placeDetailsObj = {
           name: {
-            type: 'name',
-            title: 'Name',
+            type: "name",
+            title: "Name",
             value: currentPlaceItem?.name,
           },
           placeType: {
-            type: 'placeType',
-            title: 'Place Type',
-            value: 'State',
+            type: "placeType",
+            title: "Place Type",
+            value: "State",
           },
           address: {
-            type: 'address',
-            title: 'Address',
+            type: "address",
+            title: "Address",
             value: currentPlaceItem?.address,
           },
           latitude: {
-            type: 'latitude',
-            title: 'Place Latitude',
+            type: "latitude",
+            title: "Place Latitude",
             value: currentPlaceItem?.latitude,
           },
           longitude: {
-            type: 'longitude',
-            title: 'Place Longitude',
+            type: "longitude",
+            title: "Place Longitude",
             value: currentPlaceItem?.longitude,
           },
         };
@@ -544,28 +544,28 @@ const PlaceInfoView = (props) => {
       case PlaceType.City: {
         placeDetailsObj = {
           name: {
-            type: 'name',
-            title: 'Name',
+            type: "name",
+            title: "Name",
             value: currentPlaceItem?.name,
           },
           placeType: {
-            type: 'placeType',
-            title: 'Place Type',
-            value: 'City',
+            type: "placeType",
+            title: "Place Type",
+            value: "City",
           },
           address: {
-            type: 'address',
-            title: 'Address',
+            type: "address",
+            title: "Address",
             value: currentPlaceItem?.address,
           },
           latitude: {
-            type: 'latitude',
-            title: 'Latitude',
+            type: "latitude",
+            title: "Latitude",
             value: currentPlaceItem?.latitude,
           },
           longitude: {
-            type: 'longitude',
-            title: 'Longitude',
+            type: "longitude",
+            title: "Longitude",
             value: currentPlaceItem?.longitude,
           },
         };
@@ -582,8 +582,8 @@ const PlaceInfoView = (props) => {
     placeDetailsObj = {
       ...placeDetailsObj,
       timeZone: {
-        type: 'timeZone',
-        title: 'TimeZone',
+        type: "timeZone",
+        title: "TimeZone",
         value: timezoneByPlace,
       },
     };
@@ -591,9 +591,9 @@ const PlaceInfoView = (props) => {
     placeDetailsObj = {
       ...placeDetailsObj,
       currentDate: {
-        type: 'currentDate',
-        title: 'Current Date',
-        format: 'Do MMM, YYYY, ddd',
+        type: "currentDate",
+        title: "Current Date",
+        format: "Do MMM, YYYY, ddd",
         ticking: false,
         blinking: false,
         value: timezoneByPlace,
@@ -603,9 +603,9 @@ const PlaceInfoView = (props) => {
     placeDetailsObj = {
       ...placeDetailsObj,
       currentTime: {
-        type: 'currentTime',
-        title: 'Current Time',
-        format: 'hh:mm:ss a',
+        type: "currentTime",
+        title: "Current Time",
+        format: "hh:mm:ss a",
         // format: 'hh:mm a',
         ticking: true,
         blinking: false,
@@ -639,7 +639,7 @@ const PlaceInfoView = (props) => {
       if (
         !lodash.isNil(countryItem[key]) &&
         lodash.isString(countryItem[key]) &&
-        countryItem[key]?.trim() !== ''
+        countryItem[key]?.trim() !== ""
       ) {
         placeDetailsObj = {
           ...placeDetailsObj,
@@ -657,13 +657,13 @@ const PlaceInfoView = (props) => {
     if (
       !lodash.isNil(phoneNumRegex) &&
       lodash.isString(phoneNumRegex) &&
-      phoneNumRegex.trim() !== ''
+      phoneNumRegex.trim() !== ""
     ) {
       placeDetailsObj = {
         ...placeDetailsObj,
         phoneNum: {
-          type: 'phoneNum',
-          title: 'Phone Format',
+          type: "phoneNum",
+          title: "Phone Format",
           value: phoneNumRegex,
         },
       };
@@ -675,8 +675,8 @@ const PlaceInfoView = (props) => {
       placeDetailsObj = {
         ...placeDetailsObj,
         zipCodeFormat: {
-          type: 'zipCodeFormat',
-          title: 'ZipCode Format',
+          type: "zipCodeFormat",
+          title: "ZipCode Format",
           value: postalCodeObj?.Format,
         },
       };
@@ -684,13 +684,13 @@ const PlaceInfoView = (props) => {
       if (
         !lodash.isNil(postalCodeObj?.Regex) &&
         lodash.isString(postalCodeObj?.Regex) &&
-        postalCodeObj?.Regex.trim() !== ''
+        postalCodeObj?.Regex.trim() !== ""
       ) {
         placeDetailsObj = {
           ...placeDetailsObj,
           zipCodeRegex: {
-            type: 'zipCodeFormat',
-            title: 'ZipCode Regex',
+            type: "zipCodeFormat",
+            title: "ZipCode Regex",
             value: postalCodeObj?.Regex,
           },
         };
@@ -720,10 +720,10 @@ const PlaceInfoView = (props) => {
         if (
           !lodash.isNil(item[key]) &&
           lodash.isString(`${item[key]}`) &&
-          `${item[key]}`.trim() !== ''
+          `${item[key]}`.trim() !== ""
         ) {
           if (
-            key === 'zoneName' &&
+            key === "zoneName" &&
             timezoneByPlace.toLowerCase() === item[key].toLowerCase()
           ) {
             currentTimeZoneIndex.current = index;
@@ -739,14 +739,14 @@ const PlaceInfoView = (props) => {
         }
       }
 
-      let zoneName = timeZoneObj['zoneName']['value'];
+      let zoneName = timeZoneObj["zoneName"]["value"];
 
       timeZoneObj = {
         ...timeZoneObj,
         currentTime: {
-          type: 'currentTime',
-          title: 'Current Time',
-          format: 'hh:mm:ss a',
+          type: "currentTime",
+          title: "Current Time",
+          format: "hh:mm:ss a",
           // format: 'hh:mm a',
           ticking: true,
           blinking: false,
@@ -882,11 +882,11 @@ const PlaceInfoView = (props) => {
     };
 
     return (
-      <Flex flexDirection={'column'}>
+      <Flex flexDirection={"column"}>
         <CoordinateInputView
           key={1}
           updatedValue={coordinate?.latitude}
-          title={'Latitude'}
+          title={"Latitude"}
           inputFormat={latitudeInputFormat}
           onChangeValue={onChangeLatitudeValue}
           onChangeValueEnd={onChangeLatitudeValueEnd}
@@ -895,7 +895,7 @@ const PlaceInfoView = (props) => {
         <CoordinateInputView
           key={2}
           updatedValue={coordinate?.longitude}
-          title={'Longitude'}
+          title={"Longitude"}
           inputFormat={longitudeInputFormat}
           onChangeValue={onChangeLongitudeValue}
           onChangeValueEnd={onChangeLongitudeValueEnd}
@@ -905,10 +905,10 @@ const PlaceInfoView = (props) => {
   };
 
   const renderLatLongTable = () => {
-    const latLngValueSize = 'x-small';
+    const latLngValueSize = "x-small";
 
     return (
-      <TableContainer mt={2} overflowX={'auto'}>
+      <TableContainer mt={2} overflowX={"auto"}>
         <Table size="sm">
           <Thead>
             <Tr>
@@ -924,7 +924,7 @@ const PlaceInfoView = (props) => {
                   hasArrow
                   // color='white'
                   placement="top"
-                  label={'Decimal Degrees'}
+                  label={"Decimal Degrees"}
                 >
                   DD
                 </Tooltip>
@@ -942,7 +942,7 @@ const PlaceInfoView = (props) => {
                   hasArrow
                   // color='white'
                   placement="top"
-                  label={'Degrees, Minutes & Seconds'}
+                  label={"Degrees, Minutes & Seconds"}
                 >
                   DMS
                 </Tooltip>
@@ -966,7 +966,7 @@ const PlaceInfoView = (props) => {
                   hasArrow
                   // color='white'
                   placement="top"
-                  label={'Degrees & Decimal Minutes'}
+                  label={"Degrees & Decimal Minutes"}
                 >
                   DDM
                 </Tooltip>
@@ -993,11 +993,11 @@ const PlaceInfoView = (props) => {
   const renderCoordinateMasterInput = () => {
     return (
       <AccordionItem key={0}>
-        <AccordionButton bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}>
+        <AccordionButton bg={colorMode === "dark" ? "gray.700" : "gray.100"}>
           <Box
-            width={'100%'}
-            fontSize={'md'}
-            fontWeight={'medium'}
+            width={"100%"}
+            fontSize={"md"}
+            fontWeight={"medium"}
             textAlign="left"
           >
             {`Input Coordinates`}
@@ -1005,7 +1005,7 @@ const PlaceInfoView = (props) => {
           <AccordionIcon />
         </AccordionButton>
         <AccordionPanel>
-          <Box overflowY={'auto'} overflowX={'auto'}>
+          <Box overflowY={"auto"} overflowX={"auto"}>
             {renderCoordinateInput()}
             <Divider mt={4} mb={0} />
             {renderLatLongTable()}
@@ -1024,27 +1024,27 @@ const PlaceInfoView = (props) => {
       <Flex
         key={`${propertyItem?.type}-${key}`}
         flexDirection="row"
-        alignItems={'center'}
-        justifyContent={'space-between'}
+        alignItems={"center"}
+        justifyContent={"space-between"}
         mb={2}
       >
-        <Text fontSize={'sm'}>{`${propertyItem?.title}`}</Text>
+        <Text fontSize={"sm"}>{`${propertyItem?.title}`}</Text>
         <Flex
-          justify={'center'}
-          alignItems={'center'}
+          justify={"center"}
+          alignItems={"center"}
           flexGrow={1}
-          marginX={'5px'}
+          marginX={"5px"}
         >
           <Divider minWidth={20} />
         </Flex>
         {!lodash.isNil(propertyItem?.type) &&
         [
-          'currentDateV1',
-          'currentDateV2',
-          'currentDate',
-          'currentTime',
+          "currentDateV1",
+          "currentDateV2",
+          "currentDate",
+          "currentTime",
         ].includes(propertyItem?.type) ? (
-          <Code fontSize={'sm'} textAlign={'right'} colorScheme="purple">
+          <Code fontSize={"sm"} textAlign={"right"} colorScheme="purple">
             <Clock
               format={propertyItem?.format}
               ticking={propertyItem?.ticking}
@@ -1053,7 +1053,7 @@ const PlaceInfoView = (props) => {
             />
           </Code>
         ) : (
-          <Code fontSize={'sm'} textAlign={'right'} colorScheme="linkedin">
+          <Code fontSize={"sm"} textAlign={"right"} colorScheme="linkedin">
             {`${propertyItem?.value}`.trim()}
           </Code>
         )}
@@ -1071,23 +1071,23 @@ const PlaceInfoView = (props) => {
         <Flex
           key={`TimeZone-${propertyItem?.value}-${index}`}
           flexDirection="row"
-          alignItems={'center'}
-          justifyContent={'space-between'}
+          alignItems={"center"}
+          justifyContent={"space-between"}
           mb={2}
         >
-          <Text fontSize={'sm'}>{`${propertyItem?.title}`}</Text>
+          <Text fontSize={"sm"}>{`${propertyItem?.title}`}</Text>
           <Flex
-            justify={'center'}
-            alignItems={'center'}
+            justify={"center"}
+            alignItems={"center"}
             // height={1}
             flexGrow={1}
-            marginX={'5px'}
+            marginX={"5px"}
           >
             <Divider zIndex={0} />
           </Flex>
           {!lodash.isNil(propertyItem?.type) &&
-          ['currentTime'].includes(propertyItem?.type) ? (
-            <Code fontSize={'sm'} textAlign={'right'} colorScheme="purple">
+          ["currentTime"].includes(propertyItem?.type) ? (
+            <Code fontSize={"sm"} textAlign={"right"} colorScheme="purple">
               <Clock
                 format={propertyItem?.format}
                 ticking={propertyItem?.ticking}
@@ -1096,7 +1096,7 @@ const PlaceInfoView = (props) => {
               />
             </Code>
           ) : (
-            <Code fontSize={'sm'} textAlign={'right'} colorScheme="linkedin">
+            <Code fontSize={"sm"} textAlign={"right"} colorScheme="linkedin">
               {`${propertyItem?.value}`.trim()}
             </Code>
           )}
@@ -1115,28 +1115,28 @@ const PlaceInfoView = (props) => {
         <Flex
           key={`FavPlace-${propertyItem?.value}-${index}`}
           flexDirection="row"
-          alignItems={'center'}
-          justifyContent={'space-between'}
+          alignItems={"center"}
+          justifyContent={"space-between"}
           mb={2}
         >
-          <Text fontSize={'sm'}>{`${propertyItem?.title}`}</Text>
+          <Text fontSize={"sm"}>{`${propertyItem?.title}`}</Text>
           <Flex
-            justify={'center'}
-            alignItems={'center'}
+            justify={"center"}
+            alignItems={"center"}
             // height={1}
             flexGrow={1}
-            marginX={'5px'}
+            marginX={"5px"}
           >
             <Divider zIndex={0} />
           </Flex>
           {!lodash.isNil(propertyItem?.type) &&
           [
-            'currentDateV1',
-            'currentDateV2',
-            'currentDate',
-            'currentTime',
+            "currentDateV1",
+            "currentDateV2",
+            "currentDate",
+            "currentTime",
           ].includes(propertyItem?.type) ? (
-            <Code fontSize={'sm'} textAlign={'right'} colorScheme="purple">
+            <Code fontSize={"sm"} textAlign={"right"} colorScheme="purple">
               <Clock
                 format={propertyItem?.format}
                 ticking={propertyItem?.ticking}
@@ -1145,7 +1145,7 @@ const PlaceInfoView = (props) => {
               />
             </Code>
           ) : (
-            <Code fontSize={'sm'} textAlign={'right'} colorScheme="linkedin">
+            <Code fontSize={"sm"} textAlign={"right"} colorScheme="linkedin">
               {`${propertyItem?.value}`.trim()}
             </Code>
           )}
@@ -1158,8 +1158,8 @@ const PlaceInfoView = (props) => {
     return (
       <Accordion
         flex={1}
-        overflowX={'hidden'}
-        overflowY={'auto'}
+        overflowX={"hidden"}
+        overflowY={"auto"}
         allowMultiple
         defaultIndex={[]}
       >
@@ -1175,12 +1175,12 @@ const PlaceInfoView = (props) => {
             ) && (
               <AccordionItem key={1}>
                 <AccordionButton
-                  bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
+                  bg={colorMode === "dark" ? "gray.700" : "gray.100"}
                 >
                   <Box
-                    width={'100%'}
-                    fontSize={'md'}
-                    fontWeight={'medium'}
+                    width={"100%"}
+                    fontSize={"md"}
+                    fontWeight={"medium"}
                     textAlign="left"
                   >
                     {`Place Details - ${placeItem?.name}`}
@@ -1188,7 +1188,7 @@ const PlaceInfoView = (props) => {
                   <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel>
-                  <Box overflowY={'auto'}>
+                  <Box overflowY={"auto"}>
                     {Object.keys(state?.placeDetailsObj).map((item, index) => {
                       return renderPlaceProperty(
                         state?.placeDetailsObj[item],
@@ -1204,12 +1204,12 @@ const PlaceInfoView = (props) => {
             ) && (
               <AccordionItem key={2}>
                 <AccordionButton
-                  bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
+                  bg={colorMode === "dark" ? "gray.700" : "gray.100"}
                 >
                   <Box
-                    width={'100%'}
-                    fontSize={'md'}
-                    fontWeight={'medium'}
+                    width={"100%"}
+                    fontSize={"md"}
+                    fontWeight={"medium"}
                     textAlign="left"
                   >
                     {`Country Details - ${state?.countryDetailsObj?.name?.value}`}
@@ -1217,7 +1217,7 @@ const PlaceInfoView = (props) => {
                   <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel>
-                  <Box overflowY={'auto'}>
+                  <Box overflowY={"auto"}>
                     {Object.keys(state?.countryDetailsObj).map(
                       (item, index) => {
                         return renderPlaceProperty(
@@ -1235,12 +1235,12 @@ const PlaceInfoView = (props) => {
             ) && (
               <AccordionItem key={3}>
                 <AccordionButton
-                  bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
+                  bg={colorMode === "dark" ? "gray.700" : "gray.100"}
                 >
                   <Box
-                    width={'100%'}
-                    fontSize={'md'}
-                    fontWeight={'medium'}
+                    width={"100%"}
+                    fontSize={"md"}
+                    fontWeight={"medium"}
                     textAlign="left"
                   >
                     {`TimeZone Details - (${state?.timeZoneArray.length})`}
@@ -1254,20 +1254,20 @@ const PlaceInfoView = (props) => {
                         <Box paddingY={1} key={`timezone-${index}`}>
                           {(state?.timeZoneArray ?? []).length > 1 && (
                             <Box
-                              alignItems={'center'}
-                              justifyContent={'center'}
+                              alignItems={"center"}
+                              justifyContent={"center"}
                             >
                               <Text
                                 as="u"
-                                fontWeight={'medium'}
-                                align={'center'}
-                                fontSize={'md'}
+                                fontWeight={"medium"}
+                                align={"center"}
+                                fontSize={"md"}
                               >{`TimeZone ${index + 1}`}</Text>
                               {currentTimeZoneIndex.current === index && (
                                 <Tooltip
                                   hasArrow
                                   placement="top"
-                                  label={'Current TimeZone By Place'}
+                                  label={"Current TimeZone By Place"}
                                 >
                                   <InfoIcon ms={2} />
                                 </Tooltip>
@@ -1300,12 +1300,12 @@ const PlaceInfoView = (props) => {
           (state?.favPlaceDisplayArray ?? []).length > 0 && (
             <AccordionItem key={4}>
               <AccordionButton
-                bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
+                bg={colorMode === "dark" ? "gray.700" : "gray.100"}
               >
                 <Box
-                  width={'100%'}
-                  fontSize={'md'}
-                  fontWeight={'medium'}
+                  width={"100%"}
+                  fontSize={"md"}
+                  fontWeight={"medium"}
                   textAlign="left"
                 >
                   {`Favourite Places - (${state?.favPlaceDisplayArray.length})`}
@@ -1319,49 +1319,49 @@ const PlaceInfoView = (props) => {
                       return (
                         <Box paddingY={1} key={`favPlace-${index}`}>
                           <Flex
-                            alignItems={'center'}
-                            justifyContent={'center'}
-                            flexDirection={'row'}
+                            alignItems={"center"}
+                            justifyContent={"center"}
+                            flexDirection={"row"}
                           >
                             <Text
-                              fontWeight={'medium'}
-                              align={'left'}
-                              fontSize={'md'}
+                              fontWeight={"medium"}
+                              align={"left"}
+                              fontSize={"md"}
                             >{`${favPlaceObj?.name?.value}`}</Text>
                             <Spacer />
                             <Tooltip
                               label="Remove place from favourite places"
-                              key={'fav-tt'}
+                              key={"fav-tt"}
                             >
                               <IconButton
-                                variant={'solid'}
+                                variant={"solid"}
                                 me={2}
                                 onClick={() => {
                                   onPressMakeUnFavItem(favPlaceObj, index);
                                 }}
                                 icon={
                                   <Icon
-                                    alignSelf={'center'}
+                                    alignSelf={"center"}
                                     as={BsFillStarFill}
-                                    boxSize={'15px'}
+                                    boxSize={"15px"}
                                   />
                                 }
                               />
                             </Tooltip>
                             <Tooltip
                               label="Show place in 3D Globe"
-                              key={'sp3dg-tt'}
+                              key={"sp3dg-tt"}
                             >
                               <IconButton
-                                variant={'solid'}
+                                variant={"solid"}
                                 onClick={() => {
                                   onPressShowFavItem(favPlaceObj, index);
                                 }}
                                 icon={
                                   <Icon
-                                    alignSelf={'center'}
+                                    alignSelf={"center"}
                                     as={MdLocationPin}
-                                    boxSize={'15px'}
+                                    boxSize={"15px"}
                                   />
                                 }
                               />
@@ -1370,7 +1370,7 @@ const PlaceInfoView = (props) => {
                           <Box mt={2}>
                             {Object.keys(favPlaceObj).map(
                               (item, placeIndex) => {
-                                if (item === 'name') {
+                                if (item === "name") {
                                   return null;
                                 }
 
@@ -1402,13 +1402,13 @@ const PlaceInfoView = (props) => {
       <>
         <Flex
           flex={1}
-          flexDirection={'column'}
-          maxHeight={'40vh'}
-          overflow={'hidden'}
-          borderRadius={'5px'}
+          flexDirection={"column"}
+          maxHeight={"40vh"}
+          overflow={"hidden"}
+          borderRadius={"5px"}
           mt={2}
         >
-          <Flex bg={'chakra-body-bg'} overflow={'hidden'} borderRadius={'5px'}>
+          <Flex bg={"chakra-body-bg"} overflow={"hidden"} borderRadius={"5px"}>
             {renderPlaceInfo()}
           </Flex>
         </Flex>
