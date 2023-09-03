@@ -1,47 +1,47 @@
-import React, { useRef, useState } from 'react'
-import { ReactComponent as DatePickerIcon } from '../../assets/datepicker.svg'
-import { ReactComponent as ShuttleIcon } from '../../assets/shuttle.svg'
-import { ReactComponent as WaterIcon } from '../../assets/cardano.svg'
-import { ReactComponent as CrudeIcon } from '../../assets/vector-icon.svg'
-import { ReactComponent as SequestrationIcon } from '../../assets/avalanche-avax.svg'
-import { ReactComponent as PlusIcon } from '../../assets/plus.svg'
-import { ReactComponent as MinusIcon } from '../../assets/minus.svg'
-import { ReactComponent as MapIcon } from '../../assets/map-icon.svg'
-import Moment from 'react-moment'
-import MasterContainer from '../MasterContainer'
-import GoogleApp from '../map/googleMap'
-import Actions from '../../redux/action'
-import { connect } from 'react-redux'
-import CarbonChart from '../chart/CarbonChart'
+import React, { useRef, useState } from "react";
+import { ReactComponent as DatePickerIcon } from "../../assets/datepicker.svg";
+import { ReactComponent as ShuttleIcon } from "../../assets/shuttle.svg";
+import { ReactComponent as WaterIcon } from "../../assets/cardano.svg";
+import { ReactComponent as CrudeIcon } from "../../assets/vector-icon.svg";
+import { ReactComponent as SequestrationIcon } from "../../assets/avalanche-avax.svg";
+import { ReactComponent as PlusIcon } from "../../assets/plus.svg";
+import { ReactComponent as MinusIcon } from "../../assets/minus.svg";
+import { ReactComponent as MapIcon } from "../../assets/map-icon.svg";
+import Moment from "react-moment";
+import MasterContainer from "../MasterContainer";
+import GoogleApp from "../map/googleMap";
+import Actions from "../../redux/action";
+import { connect } from "react-redux";
+import CarbonChart from "../chart/CarbonChart";
 
-import WaterQuality from './WaterQuality'
-import { useNavigate } from 'react-router-dom'
+import WaterQuality from "./WaterQuality";
+import { useNavigate } from "react-router-dom";
 
 const Globe = (props) => {
-  const { userConfig } = props
-  const [date, setDate] = useState(new Date())
-  const [visible, setVisible] = useState(false)
-  const [MapType, setMapType] = useState(false)
-  const [tab, setTab] = useState()
+  const { userConfig } = props;
+  const [date, setDate] = useState(new Date());
+  const [visible, setVisible] = useState(false);
+  const [MapType, setMapType] = useState(false);
+  const [tab, setTab] = useState();
 
-  const dateRef = useRef()
+  const dateRef = useRef();
   const handleClick = () => {
-    dateRef.current.showPicker()
-  }
+    dateRef.current.showPicker();
+  };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const ZoomIn = () => {
-    let scale = userConfig?.scaleFactor + 0.1
+    let scale = userConfig?.scaleFactor + 0.1;
     props.setUserConfig({
       ...userConfig,
       scaleFactor: scale,
-    })
-  }
+    });
+  };
 
   const CrudeClick = () => {
-    navigate('/crude')
-  }
+    navigate("/crude");
+  };
 
   return (
     <>
@@ -49,8 +49,8 @@ const Globe = (props) => {
         {!MapType && <MasterContainer />}
         {MapType && <GoogleApp />}
       </div>
-      {tab == 'Carbon' && <CarbonChart />}
-      {tab == 'Water' && <WaterQuality date={date} />}
+      {tab == "Carbon" && <CarbonChart />}
+      {tab == "Water" && <WaterQuality date={date} />}
       <div className="globe-form">
         <div className="date">
           <Moment date={date} format="DD.MM.YYYY" className="label" />
@@ -71,10 +71,10 @@ const Globe = (props) => {
           <div className="shuttle">
             <ShuttleIcon />
           </div>
-          <div className={visible ? 'options' : 'options d-none'}>
+          <div className={visible ? "options" : "options d-none"}>
             <div className="tag">
               <div className="label">Water Quality</div>
-              <div className="btn" onClick={() => setTab('Water')}>
+              <div className="btn" onClick={() => setTab("Water")}>
                 <WaterIcon />
               </div>
             </div>
@@ -86,7 +86,7 @@ const Globe = (props) => {
             </div>
             <div className="tag">
               <div className="label">Sequestration</div>
-              <div className="btn" onClick={() => setTab('Carbon')}>
+              <div className="btn" onClick={() => setTab("Carbon")}>
                 <SequestrationIcon />
               </div>
             </div>
@@ -110,19 +110,19 @@ const Globe = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
     userConfig: state.userConfig,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setUserConfig: (userConfig) => dispatch(Actions.setUserConfig(userConfig)),
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Globe)
+export default connect(mapStateToProps, mapDispatchToProps)(Globe);
