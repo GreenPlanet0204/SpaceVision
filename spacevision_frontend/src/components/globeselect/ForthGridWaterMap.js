@@ -1,104 +1,101 @@
-import React from 'react'
-import Map from './Map'
-import { GeoJSONLayer } from 'react-mapbox-gl'
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import { layerControlSimple } from 'mapbox-layer-control/layerControlSimple'
+import React from "react";
+import Map from "./Map";
+import { GeoJSONLayer } from "react-mapbox-gl";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import { layerControlSimple } from "mapbox-layer-control/layerControlSimple";
 
 const ForthGridWaterMap = (props) => {
-  const { waterbody, setWaterbody } = props
+  const { waterbody, setWaterbody } = props;
 
-  const SH_INSTANCE_ID = '778d50e7-44ad-45ce-ad2b-317b3a567d59'
+  const SH_INSTANCE_ID = "778d50e7-44ad-45ce-ad2b-317b3a567d59";
   const LINE_LAYOUT = {
-    'line-cap': 'round',
-    'line-join': 'round',
-  }
-  const NOMINAL_OUTLINE_LINE_PAINT = {
-    'line-color': '#26accc',
-    'line-width': 2,
-  }
+    "line-cap": "round",
+    "line-join": "round",
+  };
+
   const MEASUREMENT_OUTLINE_LINE_PAINT = {
-    'line-color': '#e8c26e',
-    'line-width': 2,
-  }
+    "line-color": "#e8c26e",
+    "line-width": 2,
+  };
   const MAP_CONTAINER_STYLE = {
-    height: '100%',
-    width: '100%',
-  }
-  const FIT_BOUNDS_OPTIONS = { duration: 0, padding: 50 }
-  const DEFAULT_ZOOM = [10]
-  const map = undefined
+    height: "100%",
+    width: "100%",
+  };
+  const FIT_BOUNDS_OPTIONS = { duration: 0, padding: 50 };
+  const DEFAULT_ZOOM = [10];
+  const map = undefined;
   const state = {
     centerLngLat: undefined,
-  }
+  };
 
   const minusOneDay = (day = new Date()) => {
-    day.setDate(day.getDate() - 1)
-    return day
-  }
+    day.setDate(day.getDate() - 1);
+    return day;
+  };
 
-  const endDate = new Date(waterbody.date)
-  const startDate = minusOneDay(endDate)
+  const endDate = new Date(waterbody.date);
+  const startDate = minusOneDay(endDate);
 
-  const timeInterval = `${startDate}/${new Date(waterbody.date)}`
+  const timeInterval = `${startDate}/${new Date(waterbody.date)}`;
 
   const geocoder = new MapboxGeocoder({
     accessToken:
-      'pk.eyJ1IjoienVwYW5jIiwiYSI6ImNqZWl4ZHlvdDBsejEycW1la24zYnJ3bGYifQ.49jUBh2Y3g2bOFLk3_-g2w',
-    types: 'poi',
+      "pk.eyJ1IjoienVwYW5jIiwiYSI6ImNqZWl4ZHlvdDBsejEycW1la24zYnJ3bGYifQ.49jUBh2Y3g2bOFLk3_-g2w",
+    types: "poi",
     // see https://docs.mapbox.com/api/search/#geocoding-response-object for information about the schema of each response feature
     render: function (item) {
       // extract the item's maki icon or use a default
-      const maki = item.properties.maki || 'marker'
+      const maki = item.properties.maki || "marker";
       return `<div class='geocoder-dropdown-item'>
     <span class='geocoder-dropdown-text'>
     ${item.text}
     </span>
-    </div>`
+    </div>`;
     },
     mapboxgl: Map,
     zoom: [10],
-  })
+  });
 
   const onMapLoad = (map) => {
     if (window.height !== map._container.clientHeight) {
-      map.resize()
+      map.resize();
     }
 
-    map.addSource('sentinel-hub-tiles', {
-      type: 'raster',
+    map.addSource("sentinel-hub-tiles", {
+      type: "raster",
       tiles: [
         `https://services.sentinel-hub.com/ogc/wms/${SH_INSTANCE_ID}?version=1.1.1&showLogo=False&service=WMS&request=GetMap&layers=FGWQI&time=${timeInterval}&styles=&format=image%2Fjpeg&transparent=false&maxcc=100&height=512&width=512&srs=EPSG%3A3857&bbox={bbox-epsg-3857}`,
       ],
       tileSize: 512,
-    })
+    });
     map.addLayer({
-      id: 'Sentinel',
-      type: 'raster',
-      source: 'sentinel-hub-tiles',
+      id: "Sentinel",
+      type: "raster",
+      source: "sentinel-hub-tiles",
       minzoom: 0,
       maxzoom: 22,
       layout: {
-        visibility: 'visible',
+        visibility: "visible",
       },
-    })
+    });
 
-    map.addControl(geocoder)
+    map.addControl(geocoder);
 
     map.addControl(
       new layerControlSimple({
-        layers: ['Sentinel'],
-      }),
-    )
-  }
+        layers: ["Sentinel"],
+      })
+    );
+  };
 
   const onMove = (e) => {
-    console.log('move', e.transform._center)
-    const center = e.transform._center
+    console.log("move", e.transform._center);
+    const center = e.transform._center;
     setWaterbody({
       long: center.lng,
       lat: center.lat,
-    })
-  }
+    });
+  };
 
   return (
     <div className="waterbody-map">
@@ -119,7 +116,7 @@ const ForthGridWaterMap = (props) => {
         />
       </Map>
     </div>
-  )
-}
+  );
+};
 
-export default ForthGridWaterMap
+export default ForthGridWaterMap;
