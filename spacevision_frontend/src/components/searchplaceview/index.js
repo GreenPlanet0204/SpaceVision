@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   Box,
@@ -10,35 +10,34 @@ import {
   InputRightElement,
   Icon,
   Spacer,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { CloseIcon, Search2Icon } from '@chakra-ui/icons';
-
+import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
 import {
   AutoComplete,
   AutoCompleteInput,
   AutoCompleteItem,
   AutoCompleteList,
-} from '@choc-ui/chakra-autocomplete';
+} from "@choc-ui/chakra-autocomplete";
 
-import { BsFillStarFill, BsStar } from 'react-icons/bs';
+import { BsFillStarFill, BsStar } from "react-icons/bs";
 
-import { MdLocationPin } from 'react-icons/md';
+import { MdLocationPin } from "react-icons/md";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import lodash from 'lodash';
-import * as geolib from 'geolib';
+import lodash from "lodash";
+import * as geolib from "geolib";
 
-import PlaceInfoView from './placeInfo';
-import MasterGlobeView from '../globeview';
-import NavBarView from '../Navbar';
+import PlaceInfoView from "./placeInfo";
+import MasterGlobeView from "../globeview";
+import NavBarView from "../Navbar";
 
-import Actions from '../../redux/action';
-import Constants from '../../utils/Constants';
-import AppManager from '../../utils/AppManager';
+import Actions from "../../redux/action";
+import Constants from "../../utils/Constants";
+import AppManager from "../../utils/AppManager";
 
-import MasterWorldArray from '../../data/info/countries+states+cities.json';
+import MasterWorldArray from "../../data/info/countries+states+cities.json";
 
 const { MasterDrawerMenuType, PlaceType, AppNotifKey } = Constants;
 
@@ -50,16 +49,16 @@ const SearchPlaceView = (props) => {
   } = props;
 
   const [state, setState] = useState({
-    placeName: '',
+    placeName: "",
     searchResultArray: [],
     placeItem: null,
-    placeholder: 'Searching...',
+    placeholder: "Searching...",
     isSearching: false,
     favPlaceArray: userPref?.favPlaceArray ?? [],
     isAppLoaded: false,
   });
 
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const updateState = (data) =>
     setState((preState) => ({ ...preState, ...data }));
@@ -112,7 +111,7 @@ const SearchPlaceView = (props) => {
   useEffect(() => {
     clearSearchTimer();
     updateState({
-      placeholder: 'Searching...',
+      placeholder: "Searching...",
       isSearching: true,
     });
     searchTimer.current = setTimeout(() => {
@@ -194,7 +193,7 @@ const SearchPlaceView = (props) => {
           ...nearByStateItem,
           ...selectedPlaceCoordinate,
           type: PlaceType.State,
-          countryItem: lodash.omit(countryItem, ['states']),
+          countryItem: lodash.omit(countryItem, ["states"]),
           countryName: countryItem.name,
           address: `${nearByStateItem.name}, ${countryItem.name}`,
         };
@@ -215,8 +214,8 @@ const SearchPlaceView = (props) => {
             ...nearByPlaceItem,
             ...selectedPlaceCoordinate,
             type: PlaceType.City,
-            countryItem: lodash.omit(countryItem, ['states']),
-            stateItem: lodash.omit(nearByStateItem, ['cities']),
+            countryItem: lodash.omit(countryItem, ["states"]),
+            stateItem: lodash.omit(nearByStateItem, ["cities"]),
             stateName: nearByStateItem?.name,
             countryName: countryItem.name,
             address: `${nearByPlaceItem.name}, ${nearByStateItem.name}, ${countryItem.name}`,
@@ -245,7 +244,7 @@ const SearchPlaceView = (props) => {
             ...nearByStateItem,
             ...selectedPlaceCoordinate,
             type: PlaceType.State,
-            countryItem: lodash.omit(countryItem, ['states']),
+            countryItem: lodash.omit(countryItem, ["states"]),
             countryName: countryItem.name,
             address: `${nearByStateItem.name}, ${countryItem.name}`,
           };
@@ -258,7 +257,7 @@ const SearchPlaceView = (props) => {
         }
       }
 
-      countryItem = lodash.omit(countryItem, ['states']);
+      countryItem = lodash.omit(countryItem, ["states"]);
 
       countryItem = {
         ...countryItem,
@@ -320,7 +319,7 @@ const SearchPlaceView = (props) => {
 
     if (isCountrySearchEnabled) {
       filterCountryArray = MasterWorldArray.map((item) => {
-        return lodash.omit(item, ['states']);
+        return lodash.omit(item, ["states"]);
       });
 
       filterCountryArray = filterCountryArray.filter((item) => {
@@ -355,7 +354,7 @@ const SearchPlaceView = (props) => {
             return {
               ...stateItem,
               type: PlaceType.State,
-              countryItem: lodash.omit(item, ['states']),
+              countryItem: lodash.omit(item, ["states"]),
               countryName: item.name,
             };
           });
@@ -369,7 +368,7 @@ const SearchPlaceView = (props) => {
         .slice(0, maxResultCount);
 
       filterStateArray = filterStateArray.map((item) => {
-        return lodash.omit(item, ['cities']);
+        return lodash.omit(item, ["cities"]);
       });
 
       filterStateArray = closetSort(filterStateArray, placeName);
@@ -404,8 +403,8 @@ const SearchPlaceView = (props) => {
               return {
                 ...cityItem,
                 type: PlaceType.City,
-                countryItem: lodash.omit(item, ['states']),
-                stateItem: lodash.omit(stateItem, ['cities']),
+                countryItem: lodash.omit(item, ["states"]),
+                stateItem: lodash.omit(stateItem, ["cities"]),
                 stateName: stateItem?.name,
                 countryName: item.name,
               };
@@ -443,7 +442,7 @@ const SearchPlaceView = (props) => {
 
     updateState({
       isSearching: false,
-      placeholder: searchResultArray.length > 0 ? '' : 'No result found',
+      placeholder: searchResultArray.length > 0 ? "" : "No result found",
       searchResultArray: searchResultArray,
     });
   };
@@ -468,7 +467,7 @@ const SearchPlaceView = (props) => {
       isPlaceVisible: true,
     });
 
-    setSearchKeyword('');
+    setSearchKeyword("");
 
     updateState({
       placeItem: placeItem,
@@ -499,7 +498,7 @@ const SearchPlaceView = (props) => {
   };
 
   const onClickClearButton = () => {
-    setSearchKeyword('');
+    setSearchKeyword("");
     updateState({
       searchResultArray: [],
     });
@@ -515,34 +514,34 @@ const SearchPlaceView = (props) => {
 
   const renderSearchResultList = () => {
     return (
-      <Flex flex={1} bg={'chakra-body-bg'}>
+      <Flex flex={1} bg={"chakra-body-bg"}>
         <AutoComplete
           onSelectOption={(params) => {
             onPressPlaceItem(params?.item?.originalValue);
           }}
-          bg={'chakra-body-bg'}
+          bg={"chakra-body-bg"}
           suggestWhenEmpty={false}
           emptyState={
             <Flex
-              flexDirection={'row'}
-              alignItems={'center'}
-              justifyContent={'center'}
+              flexDirection={"row"}
+              alignItems={"center"}
+              justifyContent={"center"}
             >
               {state?.isSearching && (
-                <Icon as={Search2Icon} boxSize={'15px'} me={2} />
+                <Icon as={Search2Icon} boxSize={"15px"} me={2} />
               )}
-              <Text fontSize="md" align={'center'}>
+              <Text fontSize="md" align={"center"}>
                 {`${state?.placeholder}`}
               </Text>
             </Flex>
           }
         >
-          <InputGroup bg={'chakra-body-bg'} size="md">
+          <InputGroup bg={"chakra-body-bg"} size="md">
             <InputLeftElement
               pointerEvents="none"
               color="gray.300"
               fontSize="1.2em"
-              children={<Icon as={MdLocationPin} boxSize={'20px'} />}
+              children={<Icon as={MdLocationPin} boxSize={"20px"} />}
             />
             <AutoCompleteInput
               variant="filled"
@@ -554,21 +553,21 @@ const SearchPlaceView = (props) => {
               children={
                 <IconButton
                   onClick={onClickClearButton}
-                  alignSelf={'center'}
+                  alignSelf={"center"}
                   variant="solid"
                   borderStartRadius={0}
                   icon={
                     <Icon
-                      alignSelf={'center'}
+                      alignSelf={"center"}
                       as={CloseIcon}
-                      boxSize={'15px'}
+                      boxSize={"15px"}
                     />
                   }
                 />
               }
             />
           </InputGroup>
-          <AutoCompleteList paddingY={3} marginTop={'2px'}>
+          <AutoCompleteList paddingY={3} marginTop={"2px"}>
             {(state?.searchResultArray ?? []).map((item, index) => {
               let favPlaceArray = userPref?.favPlaceArray ?? [];
               favPlaceArray = favPlaceArray.map(
@@ -591,31 +590,31 @@ const SearchPlaceView = (props) => {
                   getValue={(item) => item?.address}
                   value={item}
                 >
-                  <Flex flexDirection={'column'} flex={1}>
+                  <Flex flexDirection={"column"} flex={1}>
                     <Flex
-                      flexDirection={'row'}
-                      justifyContent={'center'}
-                      alignItems={'center'}
+                      flexDirection={"row"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
                     >
                       <Icon
-                        justifySelf={'center'}
-                        alignSelf={'center'}
+                        justifySelf={"center"}
+                        alignSelf={"center"}
                         as={MdLocationPin}
-                        boxSize={'15px'}
+                        boxSize={"15px"}
                         me={3}
                       />
                       <Text fontSize="md">{`${item.address}`}</Text>
                       <Spacer />
                       <IconButton
-                        variant={'solid'}
+                        variant={"solid"}
                         onClick={() => {
                           onPressMakeFavItem(isFavPlace, favPlaceIndex, item);
                         }}
                         icon={
                           <Icon
-                            alignSelf={'center'}
+                            alignSelf={"center"}
                             as={isFavPlace ? BsFillStarFill : BsStar}
-                            boxSize={'15px'}
+                            boxSize={"15px"}
                           />
                         }
                       />
@@ -635,22 +634,22 @@ const SearchPlaceView = (props) => {
       <>
         <Flex
           flex={1}
-          ml={'100px'}
-          direction={'column'}
-          visibility={state?.isAppLoaded ? 'visible' : 'hidden'}
+          ml={"100px"}
+          direction={"column"}
+          visibility={state?.isAppLoaded ? "visible" : "hidden"}
         >
-          <Flex flex={1} flexDirection={'row'}>
+          <Flex flex={1} flexDirection={"row"}>
             <Flex
               flex={0}
-              pointerEvents={'auto'}
+              pointerEvents={"auto"}
               p={0}
-              width={'100%'}
-              flexDirection={'column'}
+              width={"100%"}
+              flexDirection={"column"}
             >
               <Box
-                borderRadius={'5px'}
-                overflow={'hidden'}
-                bg={'chakra-body-bg'}
+                borderRadius={"5px"}
+                overflow={"hidden"}
+                bg={"chakra-body-bg"}
               >
                 {/* {renderSearchResultList()} */}
               </Box>
@@ -663,7 +662,7 @@ const SearchPlaceView = (props) => {
               </Flex>
             </Flex>
 
-            <Flex flex={5} overflow={'visible'}>
+            <Flex flex={5} overflow={"visible"}>
               {state?.isAppLoaded && <MasterGlobeView />}
             </Flex>
           </Flex>
